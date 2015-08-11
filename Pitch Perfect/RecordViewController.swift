@@ -16,13 +16,19 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBOutlet weak var recordingInProgress: UILabel!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var resumeButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
-        stopButton.hidden = true;
+        stopButton.hidden = true
+        pauseButton.hidden = true
+        resumeButton.hidden = true
+        pauseButton.enabled = true
+        resumeButton.enabled = false
     }
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
@@ -45,7 +51,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
 
     @IBAction func recordAudio(sender: UIButton) {
         recordingInProgress.text = "Recording..."
-        stopButton.hidden = false;
+        pauseButton.hidden = false
+        resumeButton.hidden = false
+        stopButton.hidden = false
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         
@@ -68,9 +76,23 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
 
+    @IBAction func pauseRecording(sender: UIButton) {
+        resumeButton.enabled = true
+        pauseButton.enabled = false
+        recordingInProgress.text = "Recording Paused"
+        audioRecorder.pause()
+    }
+    
+    @IBAction func resumeRecording(sender: UIButton) {
+        pauseButton.enabled = true
+        resumeButton.enabled = false
+        recordingInProgress.text = "Recording..."
+        audioRecorder.record()
+    }
+    
     @IBAction func stopRecording(sender: UIButton) {
         recordingInProgress.text = "Tap to Record"
-        stopButton.hidden = true;
+        stopButton.hidden = true
         
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
