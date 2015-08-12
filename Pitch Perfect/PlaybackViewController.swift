@@ -20,11 +20,11 @@ class PlaybackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.url, error: nil)
         audioPlayer.enableRate = true
         
         audioEngine = AVAudioEngine()
-        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        audioFile = AVAudioFile(forReading: receivedAudio.url, error: nil)
     }
     
     // MARK: Actions
@@ -93,6 +93,8 @@ class PlaybackViewController: UIViewController {
         audioPlayer.stop()
     }
     
+    // MARK: Utility Functions
+
     func playAudioWithVariablePitch(pitch: Float) {
         stopAndResetAudio()
         
@@ -112,7 +114,6 @@ class PlaybackViewController: UIViewController {
         audioPlayerNode.play()
     }
     
-    // MARK: Utility Functions
     func stopAndResetAudio() {
         audioPlayer.stop()
         audioEngine.stop()

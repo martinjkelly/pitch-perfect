@@ -30,25 +30,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         pauseButton.enabled = true
         resumeButton.enabled = false
     }
-    
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
-        
-        if (flag) {
-            recordedAudio = RecordedAudio(url:recorder.url, fileTitle:recorder.url.lastPathComponent!)
-            performSegueWithIdentifier("stopRecordingSegue", sender: recordedAudio)
-        } else {
-            println("Failed to save audio")
-        }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "stopRecordingSegue") {
-            let playbackVC:PlaybackViewController = segue.destinationViewController as! PlaybackViewController
-            let data = sender as! RecordedAudio
-            playbackVC.receivedAudio = data
-        }
-    }
 
+    // MARK: Actions
     @IBAction func recordAudio(sender: UIButton) {
         recordingInProgress.text = "Recording..."
         pauseButton.hidden = false
@@ -97,6 +80,25 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error:nil)
+    }
+    
+    // MARK: Segue
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
+        
+        if (flag) {
+            recordedAudio = RecordedAudio(url:recorder.url, title:recorder.url.lastPathComponent!)
+            performSegueWithIdentifier("stopRecordingSegue", sender: recordedAudio)
+        } else {
+            println("Failed to save audio")
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "stopRecordingSegue") {
+            let playbackVC:PlaybackViewController = segue.destinationViewController as! PlaybackViewController
+            let data = sender as! RecordedAudio
+            playbackVC.receivedAudio = data
+        }
     }
     
     override func didReceiveMemoryWarning() {
