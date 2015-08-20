@@ -90,7 +90,7 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func stopPlayback(sender: UIButton) {
-        audioPlayer.stop()
+        stopAndResetAudio()
     }
     
     // MARK: Utility Functions
