@@ -29,14 +29,16 @@ class PlaybackViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func slowPlayback(sender: UIButton) {
-        stopAndResetAudio()
-        audioPlayer.rate = 0.5
-        playAudio()
+        playAtRate(0.5)
     }
 
     @IBAction func fastPlayback(sender: UIButton) {
+        playAtRate(1.5)
+    }
+    
+    func playAtRate(rate:Float) {
         stopAndResetAudio()
-        audioPlayer.rate = 1.5
+        audioPlayer.rate = rate
         playAudio()
     }
     

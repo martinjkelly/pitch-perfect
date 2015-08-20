@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RecordedAudio: NSObject {
+class RecordedAudio {
     
     init (url:NSURL, title:String) {
         self.url = url
