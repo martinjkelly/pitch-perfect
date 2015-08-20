@@ -112,10 +112,10 @@
             </objects>
             <point key="canvasLocation" x="1027" y="407"/>
         </scene>
-        <!--Playback View Controller-->
+        <!--Audio Effects-->
         <scene sceneID="Yh9-cO-xhX">
             <objects>
-                <viewController id="YVC-TV-XkI" customClass="PlaybackViewController" customModule="Pitch_Perfect" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Audio Effects" id="YVC-TV-XkI" customClass="PlaybackViewController" customModule="Pitch_Perfect" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cUF-Tj-Qyj"/>
                         <viewControllerLayoutGuide type="bottom" id="WqJ-zl-iKv"/>
